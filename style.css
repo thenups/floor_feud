@@ -24,8 +24,6 @@ background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590,
 }
 
 .answerArea{
-  margin-left: 0%;
-  margin-top: -0.75%;
 }
 
 
@@ -96,7 +94,7 @@ background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590,
   padding: 0.25em 0.8em;
 }
 
- #sectioncontainer {
+#sectioncontainer {
   margin-top: 20px;
 }
 
