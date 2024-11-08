@@ -288,15 +288,8 @@ function endGame() {
   
   showModal();
   
-  // Start confetti animation
+  // Start confetti animation without stopping it
   animateConfetti();
-  
-  // Optional: Stop confetti after 5 seconds
-  setTimeout(() => {
-    confettiShower.forEach(animation => animation.cancel());
-    const confettis = document.querySelectorAll('.confetti');
-    confettis.forEach(confetti => confetti.remove());
-  }, 5000);
   
   // Disable game controls
   newQuestionButton.disabled = true;
