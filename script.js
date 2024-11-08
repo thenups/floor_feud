@@ -236,10 +236,24 @@ function updateActiveTeamDisplay() {
 
 function showModal() {
   document.querySelector('.modal-background').style.display = 'flex';
+  
+  // Only add the OK button for round-end modals, not game-end
+  if (!document.querySelector('.modal-content').classList.contains('game-end')) {
+    const modalContent = document.querySelector('.modal-content');
+    modalContent.innerHTML = `
+      <span class="modal-close">&times;</span>
+      <h2>Round Over!</h2>
+      <button class="button is-primary" id="modalOkButton">OK</button>
+    `;
+    
+    // Add event listener for OK button
+    document.getElementById('modalOkButton').addEventListener('click', closeModal);
+  }
 }
 
 function closeModal() {
   document.querySelector('.modal-background').style.display = 'none';
+  document.querySelector('.modal-content').classList.remove('game-end');
   revealUnguessedAnswers();
   disableAnswerForm();
 }
@@ -261,7 +275,6 @@ function disableAnswerForm() {
 }
 
 document.querySelector('.modal-close').addEventListener('click', closeModal);
-document.getElementById('modalOkButton').addEventListener('click', closeModal);
 
 function areAllAnswersRevealed() {
   const hiddenAnswers = document.querySelectorAll('.answer.hidden');
@@ -270,26 +283,52 @@ function areAllAnswersRevealed() {
 
 // Add new function to handle game end
 function endGame() {
-  const winner = team1Score > team2Score ? "Attic VPs" : 
-                team1Score < team2Score ? "Basement VPs" : 
-                "It's a tie!";
+  const isTeam1Winner = team1Score > team2Score;
+  const isTie = team1Score === team2Score;
   
-  // Show final score modal
   const modalContent = document.querySelector('.modal-content');
+  modalContent.classList.add('game-end'); // Add class to identify game-end modal
+  
   modalContent.innerHTML = `
     <span class="modal-close">&times;</span>
-    <h2>Game Over!</h2>
-    <p>Final Scores:</p>
-    <p>Attic VPs: ${team1Score}</p>
-    <p>Basement VPs: ${team2Score}</p>
-    <p><strong>${winner} wins!</strong></p>
-    <button class="button is-primary" id="modalOkButton">OK</button>
+    <h2 class="title is-2">Game Over!</h2>
+    ${isTie ? `
+      <h3 class="subtitle is-3">It's a Tie!</h3>
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="team-result">
+            <h4>Attic VPs & Basement VPs</h4>
+            <p class="final-score">${team1Score} points</p>
+          </div>
+        </div>
+      </div>
+    ` : `
+      <h3 class="subtitle is-3">${isTeam1Winner ? 'Attic VPs' : 'Basement VPs'} Wins!</h3>
+      <div class="winning-team">
+        <div class="avatar-container">
+          <div class="team-avatar">
+            <img src="path/to/${isTeam1Winner ? 'team1' : 'team2'}-image.jpg" alt="Winner" class="team-image">
+          </div>
+          <div class="team-avatar">
+            <img src="path/to/${isTeam1Winner ? 'team1' : 'team2'}-image.jpg" alt="Winner" class="team-image">
+          </div>
+        </div>
+        <p class="winner-score">${isTeam1Winner ? team1Score : team2Score} points</p>
+      </div>
+      <div class="losing-team">
+        <p class="loser-label">Runner Up:</p>
+        <p class="loser-name">${isTeam1Winner ? 'Basement VPs' : 'Attic VPs'}</p>
+        <p class="loser-score">${isTeam1Winner ? team2Score : team1Score} points</p>
+      </div>
+    `}
   `;
   
   showModal();
-  
-  // Start confetti animation without stopping it
   animateConfetti();
+  
+  // Add event listener for the close button
+  const closeButton = modalContent.querySelector('.modal-close');
+  closeButton.addEventListener('click', closeModal);
   
   // Disable game controls
   newQuestionButton.disabled = true;
