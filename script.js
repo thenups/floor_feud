@@ -11,12 +11,12 @@ let endGameButton = document.querySelector(".endGame");
 let questionBank = [
   {
     "question": "Who really responds to all of the Leo questions?",
-    "answers": ["Andrei", "Fabio", "Sam", "Sharran", "Tamir"],
+    "answers": ["Andrei Vazhnov", "Fabio Brahimi", "Sam Ryan", "Sharran Srivatsaa", "Tamir Poleg"],
     "points": [42, 27, 11, 10, 9, 1]
   },
   {
     "question": "What is the most exciting upcoming feature? ",
-    "answers": ["Mufasa", "Wallet", "More SOX Projects", "Referral Central", "Anything to do with Leo"],
+    "answers": ["Mufasa", "Wallet", "More SOX Projects!!", "Referral Central", "Anything to do with Leo"],
     "points": [44, 23, 12, 11, 10]
   }];
 
@@ -106,15 +106,34 @@ let currentQuestionID = -1;
 const inputField = document.querySelector("#guess");
 
 function checkAnswer(guess) {
+  const answerVariants = {
+    // Question 1 variants
+    "andrei vazhnov": ["andrei"],
+    "fabio brahimi": ["fabio"],
+    "sam ryan": ["sam"],
+    "sharran srivatsaa": ["sharran"],
+    "tamir poleg": ["tamir"],
+    
+    // Question 2 variants
+    "mufasa": ["mufasa"],
+    "wallet": ["wallet"],
+    "more sox projects!!": ["sox", "more sox", "more sox projects"],
+    "referral central": ["referral", "referrals", "referral central"],
+    "anything to do with leo": ["leo", "anything leo", "anything to do with leo"]
+  };
+
   for (let i = 0; i < questionBank[currentQuestionID].answers.length; i++) {
-    if (guess === questionBank[currentQuestionID].answers[i].toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')) {
+    const originalAnswer = questionBank[currentQuestionID].answers[i].toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+    const variants = answerVariants[originalAnswer] || [originalAnswer];
+    
+    if (variants.includes(guess)) {
       roundPoints = questionBank[currentQuestionID].points[i];
       answers.forEach((answer) => {
         let answerNum = parseInt(answer.id);
         if (answerNum === i) {
           answer.classList.remove("hidden");
         }
-      })
+      });
       return true;
     }
   }
