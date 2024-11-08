@@ -403,12 +403,20 @@ font-family: 'Work Sans', sans-serif;
 }
 
 .modal-content {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  position: relative;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 16px 48px rgba(5, 14, 61, 0.2);
   min-width: 300px;
   text-align: center;
+}
+
+.modal-content h2 {
+  font-size: 32px;
+  color: #050E3D;
+  margin-bottom: 24px;
+  font-weight: 600;
 }
 
 .modal-close {
@@ -719,6 +727,12 @@ font-family: 'Work Sans', sans-serif;
 
 .answer-text {
   margin-right: 20px; /* Optional: adds some space between text and points */
+}
+
+/* Add spacing between modal elements */
+#modalOkButton {
+  margin-top: 32px;
+  opacity: 0.9;
 }
 
 

@@ -348,7 +348,7 @@ function showModal() {
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = `
       <span class="modal-close">&times;</span>
-      <h2 style="font-family: 'Telegraf', 'Poppins', sans-serif;">Round Over!</h2>
+      <h2>Round Over!</h2>
       <button class="button is-primary" id="modalOkButton">OK</button>
     `;
     
