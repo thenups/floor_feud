@@ -25,20 +25,6 @@
   <div id="confetti-container">
     <section class="container">
       <div class=topContainer>
-        <div class="horizontalPosition">
-          <section class="timerArea">
-            <div class="btnGroup">
-              <span>
-                <span class="timer">
-                  <span>
-                    <div class=" " id="counter"> Time Left: <br> 20 </div>
-                  </span>
-                  <span><button class="button" onclick="playPause()">▶️</button></span>
-                </span>
-              </span>
-            </div>
-          </section>
-        </div>
         <img src="img/FloorFeudLogo.png" alt="logo"
           class="logo" />
       </div>
@@ -52,14 +38,24 @@
       </div>
     </section>
 
-    <div class="horizontalPosition">
-      <section class="hero ">
+    <div class="horizontalPosition input-timer-container">
+      <section class="timerArea">
+        <div class="btnGroup">
+          <span class="timer">
+            <span>
+              <div class=" " id="counter"> Time Left: <br> 20 </div>
+            </span>
+            <span><button class="button" onclick="playPause()">▶️</button></span>
+          </span>
+        </div>
+      </section>
+
+      <section class="hero">
         <form target="#here" method="post" id="answerForm">
           <input id="guess" class="input is-primary is-large" type="text" name="language"
             placeholder="Type your guess here!" />
         </form>
       </section>
-      <br>
     </div>
     <h3 id="incorrectAnswerResponse" class="hidden"> Your guess is incorrect </h3>
     <br>

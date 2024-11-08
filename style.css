@@ -39,6 +39,8 @@ h1, h2, h3, h4, h5, h6, .team-name {
 .horizontalPosition{
   display: flex;
   flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .topContainer{
@@ -153,7 +155,8 @@ h1, h2, h3, h4, h5, h6, .team-name {
 }
 
 #guess{
-  margin-left: 200%;
+  margin-left: 20px;
+  width: 400px;
 }
 
 #incorrectAnswerResponse{
@@ -424,6 +427,43 @@ font-family: 'Work Sans', sans-serif;
 .input.is-primary:focus {
   border-color: #05C3F9;
   box-shadow: 0 0 0 0.125em rgba(5, 195, 249, 0.25);
+}
+
+.timerArea {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Add/update these styles */
+.input-timer-container {
+  gap: 20px;
+  margin: 20px auto;
+  align-items: center;
+}
+
+.timerArea {
+  margin: 0;
+  min-width: 150px;
+}
+
+#counter {
+  text-align: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+#guess {
+  margin: 0;
+  width: 400px;
 }
 
 
