@@ -50,7 +50,11 @@ function countdown() {
   
   function tick() {
     var counter = document.getElementById("counter");
-    counter.innerHTML = "Time left: <br> " + (seconds < 10 ? "0" : "") + String(seconds);
+    counter.innerHTML = `
+      <span style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">
+        Time left: <br> ${(seconds < 10 ? "0" : "") + String(seconds)}
+      </span>
+    `;
     
     if (seconds <= 0) {
       clearInterval(timerInterval);
@@ -84,7 +88,11 @@ function countdown() {
     timerInterval = setInterval(tick, 1000);
   } else {
     var counter = document.getElementById("counter");
-    counter.innerHTML = "Time left: <br> " + (seconds < 10 ? "0" : "") + String(seconds);
+    counter.innerHTML = `
+      <span style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">
+        Time left: <br> ${(seconds < 10 ? "0" : "") + String(seconds)}
+      </span>
+    `;
   }
 }
 
@@ -148,13 +156,13 @@ var confettiShower = [];
 var numConfettis = 400;
 var container = document.getElementById('confetti-container');
 var colors = [
-  "#00FF73  ",
-  "#6C4AE2",
-  "#FDDA00 ",
-  "#DB27DB ",
-  "#FA405A ",
-  "#51EFFC ",
-  "#EB640A "
+  "#050E3D", // Cobalt
+  "#BFDDDB", // Seaglass
+  "#615B56", // Slate
+  "#05C3F9", // Legacy Blue
+  "#00FBF0", // Aqua
+  "#FF557E", // Coral
+  "#FFFFFF"  // Chalk
 ];
 
 class Confetti {
@@ -334,7 +342,7 @@ function showModal() {
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = `
       <span class="modal-close">&times;</span>
-      <h2>Round Over!</h2>
+      <h2 style="font-family: 'Telegraf', 'Poppins', sans-serif;">Round Over!</h2>
       <button class="button is-primary" id="modalOkButton">OK</button>
     `;
     
@@ -384,34 +392,42 @@ function endGame() {
   
   modalContent.innerHTML = `
     <span class="modal-close">&times;</span>
-    <h2 class="title is-2">Game Over!</h2>
+    <h2 class="title is-2" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">Game Over!</h2>
     ${isTie ? `
-      <h3 class="subtitle is-3">It's a Tie!</h3>
+      <h3 class="subtitle is-3" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">It's a Tie!</h3>
       <div class="columns is-centered">
         <div class="column is-half">
           <div class="team-result">
-            <h4>Attic VPs & Basement VPs</h4>
-            <p class="final-score">${team1Score} points</p>
+            <h4 style="font-family: 'Telegraf', 'Poppins', sans-serif;">Attic VPs & Basement VPs</h4>
+            <p class="final-score" style="font-family: 'Inter', 'Arial', sans-serif; color: #050E3D;">${team1Score} points</p>
           </div>
         </div>
       </div>
     ` : `
-      <h3 class="subtitle is-3">${isTeam1Winner ? 'Attic VPs' : 'Basement VPs'} Wins!</h3>
+      <h3 class="subtitle is-3" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">
+        ${isTeam1Winner ? 'Attic VPs' : 'Basement VPs'} Wins!
+      </h3>
       <div class="winning-team">
         <div class="avatar-container">
-          <div class="team-avatar">
+          <div class="team-avatar" style="border-color: #05C3F9;">
             <img src="https://ca.slack-edge.com/T041X66AJ-${isTeam1Winner ? 'U06CQ3K63QR-1882d0f16642' : 'U01HN4982KD-c60dbacf8c8d'}-512" alt="Winner 1" class="team-image">
           </div>
-          <div class="team-avatar">
+          <div class="team-avatar" style="border-color: #05C3F9;">
             <img src="https://ca.slack-edge.com/T041X66AJ-${isTeam1Winner ? 'U07DV4RK3BP-33a9e8caf1e8' : 'U01PP23N42F-33c796cb2888'}-512" alt="Winner 2" class="team-image">
           </div>
         </div>
-        <p class="winner-score">${isTeam1Winner ? team1Score : team2Score} points</p>
+        <p class="winner-score" style="font-family: 'Inter', 'Arial', sans-serif; color: #050E3D;">
+          ${isTeam1Winner ? team1Score : team2Score} points
+        </p>
       </div>
       <div class="losing-team">
-        <p class="loser-label">Runner Up:</p>
-        <p class="loser-name">${isTeam1Winner ? 'Basement VPs' : 'Attic VPs'}</p>
-        <p class="loser-score">${isTeam1Winner ? team2Score : team1Score} points</p>
+        <p class="loser-label" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #615B56;">Runner Up:</p>
+        <p class="loser-name" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #615B56;">
+          ${isTeam1Winner ? 'Basement VPs' : 'Attic VPs'}
+        </p>
+        <p class="loser-score" style="font-family: 'Inter', 'Arial', sans-serif; color: #615B56;">
+          ${isTeam1Winner ? team2Score : team1Score} points
+        </p>
       </div>
     `}
   `;

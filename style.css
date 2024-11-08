@@ -1,11 +1,13 @@
 body{
-font-family: 'Playfair Display', serif;
-font-family: 'Work Sans', sans-serif;
-background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590, #f4b084, #f4aa78, #f4a46b, #f39e5e, #f4964e, #f48e3c, #f48529, #f37d0e);
- height: 900px;
+font-family: 'Inter', 'Arial', sans-serif;
+background-image: linear-gradient(to bottom, #BFDDDB, #05C3F9);
+height: 900px;
+color: #050E3D;
 }
 
-
+h1, h2, h3, h4, h5, h6, .team-name {
+  font-family: 'Telegraf', 'Poppins', sans-serif;
+}
 
 .logo{
   width: 15%;
@@ -16,8 +18,6 @@ background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590,
   margin-bottom: 0.5%;
 }
 
-
-
 .answer{
   text-align: center;
   font-size: 20px;
@@ -25,7 +25,6 @@ background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590,
 
 .answerArea{
 }
-
 
 .counter{
   border-radius: 100%;
@@ -110,7 +109,7 @@ background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590,
   word-break: break-all;
   position: relative;
   padding: 20px;
-  background: #fff;
+  background: #ffffff;
   border-radius: 4px;
   font-size: 20px;
   text-align: center;
@@ -118,6 +117,7 @@ background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590,
   -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
   box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
   margin: 5px;
+  color: #050E3D;
 }
 #submitButton{
   margin-left: 20px;
@@ -244,21 +244,22 @@ font-family: 'Work Sans', sans-serif;
 }
 
 .team-section {
-  border: 3px solid #209cee;
+  border: 3px solid #050E3D;
   padding: 20px;
   border-radius: 12px;
   text-align: center;
   margin: 0 20px;
   transition: all 0.4s ease;
   background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(29, 29, 29, 0.1);
   min-width: 200px;
   position: relative;
 }
 
 .active-team {
-  background-color: rgba(48, 14, 243, 0.8) !important;
-  border-color: #f37d0e !important;
+  background-color: rgba(5, 14, 61, 0.8) !important;
+  border-color: #FF557E !important;
+  color: #ffffff;
   transform: scale(1.05);
   box-shadow: 0 8px 16px rgba(243, 125, 14, 0.2);
 }
@@ -322,7 +323,7 @@ font-family: 'Work Sans', sans-serif;
 .team-score {
   font-size: 2.5rem;
   font-weight: bold;
-  color: #f37d0e;
+  color: #050E3D;
   margin-top: 15px;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
@@ -400,8 +401,29 @@ font-family: 'Work Sans', sans-serif;
 }
 
 .unguessed-answer {
-  background-color: #ffebee !important;
+  background-color: #BFDDDB !important;
   opacity: 0.8;
+}
+
+/* Update button styles */
+.button.is-primary {
+  background-color: #050E3D;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.button.is-primary:hover {
+  background-color: #05C3F9;
+}
+
+/* Update input styles */
+.input.is-primary {
+  border-color: #050E3D;
+}
+
+.input.is-primary:focus {
+  border-color: #05C3F9;
+  box-shadow: 0 0 0 0.125em rgba(5, 195, 249, 0.25);
 }
 
 
