@@ -276,6 +276,12 @@ function playNextQuestionSound() {
   audio.play();
 }
 
+function playGameOverSound() {
+  const audio = new Audio();
+  audio.src = "sounds/fanfare.mp3";
+  audio.play();
+}
+
 function displayQuestion(questionId) {
   questionBox.innerHTML = questionBank[questionId].question;
   answers.forEach((answer, i) => {
@@ -397,6 +403,8 @@ function areAllAnswersRevealed() {
 function endGame() {
   const isTeam1Winner = team1Score > team2Score;
   const isTie = team1Score === team2Score;
+  
+  playGameOverSound();
   
   const modalContent = document.querySelector('.modal-content');
   modalContent.classList.add('game-end');
