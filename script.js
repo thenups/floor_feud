@@ -27,6 +27,8 @@ let activeTeam = 1; // 1 for team1, 2 for team2
 let team1Score = 0;
 let team2Score = 0;
 let roundPoints = 0;
+let team1WrongAnswer = false;
+let team2WrongAnswer = false;
 
 //function to start timer:
 function countdown() {
@@ -59,7 +61,6 @@ function checkAnswer(guess) {
         let answerNum = parseInt(answer.id);
         if (answerNum === i) {
           answer.classList.remove("hidden");
-          answer.innerHTML = questionBank[currentQuestionID].answers[i] + `<br> ${questionBank[currentQuestionID].points[i]} points`;
         }
       })
       return true;
@@ -122,7 +123,6 @@ let submitAnswer = (event) => {
 
   if (checkAnswer(guess)) {
     playCorrectAnswerSound();
-    // Add points to active team
     if (activeTeam === 1) {
       team1Score += roundPoints;
       document.querySelector('.team1-score').textContent = team1Score;
@@ -130,13 +130,26 @@ let submitAnswer = (event) => {
       team2Score += roundPoints;
       document.querySelector('.team2-score').textContent = team2Score;
     }
+
+    if (areAllAnswersRevealed()) {
+      showModal();
+    }
   } else {
     playWrongAnswerSound();
-    // Switch teams on wrong answer
+    if (activeTeam === 1) {
+      team1WrongAnswer = true;
+    } else {
+      team2WrongAnswer = true;
+    }
+
+    if (team1WrongAnswer && team2WrongAnswer) {
+      showModal();
+    }
+
     activeTeam = activeTeam === 1 ? 2 : 1;
     updateActiveTeamDisplay();
   }
-  
+
   inputField.value = "";
 };
 
@@ -167,14 +180,14 @@ function playNextQuestionSound() {
 
 function displayQuestion(questionId) {
   questionBox.innerHTML = questionBank[questionId].question;
-  // Reset answers display
-  answers.forEach(answer => {
+  answers.forEach((answer, i) => {
     answer.classList.add("hidden");
-    answer.innerHTML = "";
+    answer.innerHTML = questionBank[currentQuestionID].answers[i] + `<br> ${questionBank[currentQuestionID].points[i]} points`;
   });
-  // Reset round state
   roundPoints = 0;
-  activeTeam = 1; // Reset to team 1 on new question
+  activeTeam = 1;
+  team1WrongAnswer = false;
+  team2WrongAnswer = false;
   updateActiveTeamDisplay();
 }
 
@@ -189,7 +202,7 @@ newQuestionButton.addEventListener("click", () => {
 function updateActiveTeamDisplay() {
   const team1Container = document.querySelector('#atticVPs');
   const team2Container = document.querySelector('#basementVPs');
-  
+
   if (activeTeam === 1) {
     team1Container.classList.add('active-team');
     team2Container.classList.remove('active-team');
@@ -197,4 +210,38 @@ function updateActiveTeamDisplay() {
     team2Container.classList.add('active-team');
     team1Container.classList.remove('active-team');
   }
+}
+
+function showModal() {
+  document.querySelector('.modal-background').style.display = 'flex';
+}
+
+function closeModal() {
+  document.querySelector('.modal-background').style.display = 'none';
+  revealUnguessedAnswers();
+  disableAnswerForm();
+}
+
+function revealUnguessedAnswers() {
+  const answers = document.querySelectorAll('.answer');
+  answers.forEach(answer => {
+    if (answer.classList.contains('hidden')) {
+      answer.classList.remove('hidden');
+      answer.closest('.board-item-content').classList.add('unguessed-answer');
+    }
+  });
+}
+
+function disableAnswerForm() {
+  const guessInput = document.getElementById('guess');
+  guessInput.disabled = true;
+  guessInput.placeholder = 'Round is over';
+}
+
+document.querySelector('.modal-close').addEventListener('click', closeModal);
+document.getElementById('modalOkButton').addEventListener('click', closeModal);
+
+function areAllAnswersRevealed() {
+  const hiddenAnswers = document.querySelectorAll('.answer.hidden');
+  return hiddenAnswers.length === 0;
 }
