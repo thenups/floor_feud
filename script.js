@@ -10,7 +10,7 @@ let guessesBox = document.querySelector(".guessesLeft");
 let questionBox = document.querySelector(".questionBox");
 let newQuestionButton = document.querySelector(".questionButton");
 let submitButton = document.querySelector("#submitButton");
-let endGameButton=document.querySelector(".endGame");
+let endGameButton = document.querySelector(".endGame");
 
 let questionBank = [
   {
@@ -40,20 +40,20 @@ let answers = document.querySelectorAll(".answer");
 
 //function to start timer:
 function countdown() {
-        var seconds = 59;
-        function tick() {
-          var counter = document.getElementById("counter");
-          seconds--;
-          counter.innerHTML =
-            "Time left: <br> 0:" + (seconds < 10 ? "0" : "") + String(seconds);
-          if (seconds > 0) {
-            setTimeout(tick, 1000);
-          } else {
-            document.getElementById("counter").innerHTML = "";
-          }
-        }
-        tick();
-      }
+  var seconds = 59;
+  function tick() {
+    var counter = document.getElementById("counter");
+    seconds--;
+    counter.innerHTML =
+      "Time left: <br> 0:" + (seconds < 10 ? "0" : "") + String(seconds);
+    if (seconds > 0) {
+      setTimeout(tick, 1000);
+    } else {
+      document.getElementById("counter").innerHTML = "";
+    }
+  }
+  tick();
+}
 
 
 
@@ -64,7 +64,7 @@ newQuestionButton.addEventListener("click", () => {
   questionBox.innerHTML = questionBank[randomNum].question;
   incorrectAnswerResponse.classList.add("hidden");
   countdown();
-  roundPoints  = 0;
+  roundPoints = 0;
   guessesLeft = 3;
   //add hidden to classlist of all answers
   answers.forEach((answer) => {
@@ -78,37 +78,36 @@ newQuestionButton.addEventListener("click", () => {
 const inputField = document.querySelector("#guess");
 let incorrectAnswerResponse = document.querySelector("#incorrectAnswerResponse");
 
-function checkAnswer(guess){
-    for (let i = 0; i < questionBank[randomNum].answers.length; i++) {
-      //correct answer
-      if (guess === questionBank[randomNum].answers[i].toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')) {
-        roundPoints += questionBank[randomNum].points[i];
-        answers.forEach((answer)=> {
-          let answerNum = parseInt(answer.id);
-          if(answerNum === i){
-            answer.classList.remove("hidden");
-            answer.innerHTML = questionBank[randomNum].answers[i] + `<br> ${questionBank[randomNum].points[i]} points`; 
-          }
-        })
-        return true;
-      }
+function checkAnswer(guess) {
+  for (let i = 0; i < questionBank[randomNum].answers.length; i++) {
+    //correct answer
+    if (guess === questionBank[randomNum].answers[i].toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')) {
+      roundPoints += questionBank[randomNum].points[i];
+      answers.forEach((answer) => {
+        let answerNum = parseInt(answer.id);
+        if (answerNum === i) {
+          answer.classList.remove("hidden");
+          answer.innerHTML = questionBank[randomNum].answers[i] + `<br> ${questionBank[randomNum].points[i]} points`;
+        }
+      })
+      return true;
     }
-      guessesLeft--;
-      updateBoard();
-      return false;
+  }
+  guessesLeft--;
+  updateBoard();
+  return false;
 }
 
 let flag;
-// submitButton.addEventListener("click", );
 
 
 
 //SCORE UPDATE CODE
 team1ScoreBox.addEventListener("click", () => {
-  team1Points += roundPoints; 
+  team1Points += roundPoints;
   updateBoard();
 });
- 
+
 
 
 
@@ -117,25 +116,6 @@ team2ScoreBox.addEventListener("click", () => {
   updateBoard();
 });
 
-
-//AUDIO 
-function submit () {
-const audio= new Audio (); 
-audio.src = "sound.mp3"; 
-audio.play();
-}
-
-function team () {
-  const audio = new Audio(); 
-  audio.src = "new.mp3"; 
-  audio.play(); 
-}
-
-function points () {
-  const audio = new Audio(); 
-  audio.src ="points.mp3";
-  audio.play(); 
-}
 
 
 
@@ -156,17 +136,17 @@ var colors = [
 class Confetti {
   constructor(x, y, w, h, c) {
     this.w = Math.floor(Math.random() * 15 + 5);
-    this.h = this.w*1.2;
+    this.h = this.w * 1.2;
     this.x = Math.floor(Math.random() * 100);
     this.y = Math.floor(Math.random() * 100);
     this.c = colors[Math.floor(Math.random() * colors.length)];
   }
   create() {
-      var newConfetti = '<div class="confetti" style="bottom:' + this.y +'%; left:' + this.x +'%;width:' +
-        this.w +'px; height:' + this.h +'px;"><div class="rotate"><div class="askew" style="background-color:' + this.c + '"></div></div></div>';
-      container.innerHTML+= newConfetti; 
-      }
-  };
+    var newConfetti = '<div class="confetti" style="bottom:' + this.y + '%; left:' + this.x + '%;width:' +
+      this.w + 'px; height:' + this.h + 'px;"><div class="rotate"><div class="askew" style="background-color:' + this.c + '"></div></div></div>';
+    container.innerHTML += newConfetti;
+  }
+};
 
 function animateConfetti() {
   for (var i = 1; i <= numConfettis; i++) {
@@ -184,20 +164,20 @@ function animateConfetti() {
       iterations: Infinity,
       delay: -(Math.random() * 5000)
     });
-   confettiShower.push(animated);
+    confettiShower.push(animated);
   }
 }
 
-endGameButton.addEventListener("click", ()=> {
+endGameButton.addEventListener("click", () => {
   animateConfetti();
-  if(team1Points > team2Points){
+  if (team1Points > team2Points) {
     alert("Team 1 won!");
   }
-  else if(team1Points < team2Points){
+  else if (team1Points < team2Points) {
     alert("Team 2 won!")
   }
-  else if(team1Points === team2Points) {
-    alert("The game is tied!"); 
+  else if (team1Points === team2Points) {
+    alert("The game is tied!");
   }
 });
 
@@ -205,21 +185,9 @@ let submitAnswer = (event) => {
   console.log("submitted");
   let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
 
-  if (guessesLeft > 0){
-    flag = checkAnswer(guess);
-   
-  }
-
-  if(flag === true){
-    incorrectAnswerResponse.classList.add("hidden");
-  }
- 
-  if(flag === false){
-    incorrectAnswerResponse.classList.remove("hidden");
-  }
-  
-   if(guessesLeft === 0){
-    alert("You have ran out of guesses. Click which team you would like to add points to"); 
+  // todo: handle guesses
+  if (guessesLeft === 0) {
+    alert("You have ran out of guesses. Click which team you would like to add points to");
   }
   updateBoard();
   inputField.value = "";
@@ -227,10 +195,35 @@ let submitAnswer = (event) => {
 
 document.getElementById("answerForm").addEventListener("submit", (event) => {
   event.preventDefault();
-  let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-  submitAnswer(event)
-  team();
+  // let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+  // submitAnswer(event)
+  // playDoubleDingSound();
 });
 
 
 
+//AUDIO 
+function playCorrectAnswerSound() {
+  const audio = new Audio();
+  audio.src = "sound.mp3";
+  audio.play();
+}
+
+function playDoubleDingSound() {
+  const audio = new Audio();
+  audio.src = "new.mp3";
+  audio.play();
+}
+
+function playNextQuestionSound() {
+  const audio = new Audio();
+  audio.src = "points.mp3";
+  audio.play();
+}
+
+function playPause() {
+  // TODO: implement pause
+  const audio = new Audio();
+  audio.src = "points.mp3";
+  audio.play();
+}
