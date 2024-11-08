@@ -42,10 +42,15 @@
       <section class="timerArea">
         <div class="btnGroup">
           <span class="timer">
-            <span>
-              <div class=" " id="counter"> Time Left: <br> 20 </div>
-            </span>
-            <span><button class="button" onclick="playPause()">▶️</button></span>
+            <div id="counter">
+              <div class="timer-content">
+                <div class="timer-label">Time Left</div>
+                <div>20</div>
+              </div>
+            </div>
+            <button onclick="playPause()">
+              <span class="play-pause-icon">▶️</span>
+            </button>
           </span>
         </div>
       </section>

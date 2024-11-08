@@ -51,9 +51,10 @@ function countdown() {
   function tick() {
     var counter = document.getElementById("counter");
     counter.innerHTML = `
-      <span style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">
-        Time left: <br> ${(seconds < 10 ? "0" : "") + String(seconds)}
-      </span>
+      <div class="timer-content">
+        <div class="timer-label">Time Left</div>
+        <div>${(seconds < 10 ? "0" : "") + String(seconds)}</div>
+      </div>
     `;
     
     if (seconds <= 0) {
@@ -74,7 +75,7 @@ function countdown() {
         savedSeconds = 20;
         isTimerRunning = false;
         const playPauseButton = document.querySelector('.btnGroup button');
-        playPauseButton.textContent = "▶️";
+        playPauseButton.innerHTML = '<span class="play-pause-icon">▶️</span>';
         countdown();
       }
       return;
@@ -89,9 +90,10 @@ function countdown() {
   } else {
     var counter = document.getElementById("counter");
     counter.innerHTML = `
-      <span style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">
-        Time left: <br> ${(seconds < 10 ? "0" : "") + String(seconds)}
-      </span>
+      <div class="timer-content">
+        <div class="timer-label">Time Left</div>
+        <div>${(seconds < 10 ? "0" : "") + String(seconds)}</div>
+      </div>
     `;
   }
 }
@@ -102,10 +104,10 @@ function playPause() {
   const playPauseButton = document.querySelector('.btnGroup button');
   
   if (isTimerRunning) {
-    playPauseButton.textContent = "⏸";
+    playPauseButton.innerHTML = '<span class="play-pause-icon">⏸</span>';
     countdown();
   } else {
-    playPauseButton.textContent = "▶️";
+    playPauseButton.innerHTML = '<span class="play-pause-icon">▶️</span>';
     clearInterval(timerInterval);
   }
 }
@@ -241,7 +243,7 @@ let submitAnswer = (event) => {
     savedSeconds = 20;
     isTimerRunning = false;
     const playPauseButton = document.querySelector('.btnGroup button');
-    playPauseButton.textContent = "⏯️";
+    playPauseButton.innerHTML = '<span class="play-pause-icon">⏯️</span>';
     countdown();
   }
 
@@ -308,7 +310,7 @@ newQuestionButton.addEventListener("click", () => {
     savedSeconds = 20; // Reset saved seconds
     isTimerRunning = false; // Ensure timer starts paused
     const playPauseButton = document.querySelector('.btnGroup button');
-    playPauseButton.textContent = "⏯️";
+    playPauseButton.innerHTML = '<span class="play-pause-icon">⏯️</span>';
     countdown(); // This will just display the time without starting
   } else {
     endGame();
