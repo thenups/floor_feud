@@ -352,6 +352,10 @@ function showModal() {
       <button class="button is-primary" id="modalOkButton">OK</button>
     `;
     
+    if (currentQuestionID === questionBank.length - 1) {
+      newQuestionButton.textContent = "See Winner →";
+    }
+    
     document.getElementById('modalOkButton').addEventListener('click', closeModal);
   }
 }
