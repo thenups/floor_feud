@@ -31,6 +31,10 @@ let team1WrongAnswer = false;
 let team2WrongAnswer = false;
 let timerInterval; // To store the timer reference
 
+// Add these variables at the top with other variables
+let isTimerRunning = false;
+let savedSeconds = 20; // To store the remaining time when paused
+
 // Add this line after other variable declarations
 let guessInput = document.getElementById('guess');
 guessInput.disabled = true;  // Disable input field initially
@@ -39,7 +43,7 @@ guessInput.placeholder = 'Click Next Question to start!';
 //function to start timer:
 function countdown() {
   clearInterval(timerInterval);
-  let seconds = 20;
+  let seconds = savedSeconds;
   
   function tick() {
     var counter = document.getElementById("counter");
@@ -47,7 +51,6 @@ function countdown() {
     
     if (seconds <= 0) {
       clearInterval(timerInterval);
-      // Handle timeout like a wrong answer
       playWrongAnswerSound();
       if (activeTeam === 1) {
         team1WrongAnswer = true;
@@ -60,15 +63,39 @@ function countdown() {
       } else {
         activeTeam = activeTeam === 1 ? 2 : 1;
         updateActiveTeamDisplay();
-        countdown(); // Start timer for other team
+        savedSeconds = 20;
+        isTimerRunning = false;
+        const playPauseButton = document.querySelector('.btnGroup button');
+        playPauseButton.textContent = "⏯️";
+        countdown();
       }
       return;
     }
     seconds--;
+    savedSeconds = seconds;
   }
   
-  tick();
-  timerInterval = setInterval(tick, 1000);
+  if (isTimerRunning) {
+    tick();
+    timerInterval = setInterval(tick, 1000);
+  } else {
+    var counter = document.getElementById("counter");
+    counter.innerHTML = "Time left: <br> " + (seconds < 10 ? "0" : "") + String(seconds);
+  }
+}
+
+// Add new function to handle play/pause
+function playPause() {
+  isTimerRunning = !isTimerRunning;
+  const playPauseButton = document.querySelector('.btnGroup button');
+  
+  if (isTimerRunning) {
+    playPauseButton.textContent = "⏸️";
+    countdown();
+  } else {
+    playPauseButton.textContent = "⏯️";
+    clearInterval(timerInterval);
+  }
 }
 
 // start with -1 so that when we click next question, it will be 0
@@ -157,10 +184,11 @@ let submitAnswer = (event) => {
     }
 
     if (areAllAnswersRevealed()) {
-      clearInterval(timerInterval); // Stop timer when all answers revealed
+      clearInterval(timerInterval);
       showModal();
     } else {
-      countdown(); // Reset timer after correct answer
+      savedSeconds = 20;
+      countdown();
     }
   } else {
     playWrongAnswerSound();
@@ -171,13 +199,17 @@ let submitAnswer = (event) => {
     }
 
     if (team1WrongAnswer && team2WrongAnswer) {
-      clearInterval(timerInterval); // Stop timer when both teams are wrong
+      clearInterval(timerInterval);
       showModal();
     }
 
     activeTeam = activeTeam === 1 ? 2 : 1;
     updateActiveTeamDisplay();
-    countdown(); // Reset timer after wrong answer
+    savedSeconds = 20;
+    isTimerRunning = false;
+    const playPauseButton = document.querySelector('.btnGroup button');
+    playPauseButton.textContent = "⏯️";
+    countdown();
   }
 
   inputField.value = "";
@@ -230,16 +262,18 @@ function displayQuestion(questionId) {
 }
 
 newQuestionButton.addEventListener("click", () => {
-  currentQuestionID++;  // Increment first
+  currentQuestionID++;
   console.log("new question button clicked", currentQuestionID, questionBank.length);
   
-  if (currentQuestionID < questionBank.length) {  // Changed condition
-    // Show question if we still have questions
+  if (currentQuestionID < questionBank.length) {
     displayQuestion(currentQuestionID);
     playNextQuestionSound();
-    countdown();
+    savedSeconds = 20; // Reset saved seconds
+    isTimerRunning = false; // Ensure timer starts paused
+    const playPauseButton = document.querySelector('.btnGroup button');
+    playPauseButton.textContent = "⏯️";
+    countdown(); // This will just display the time without starting
   } else {
-    // End game after all questions have been shown
     endGame();
   }
 });
