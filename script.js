@@ -113,19 +113,6 @@ function animateConfetti() {
   }
 }
 
-// endGameButton.addEventListener("click", () => {
-//   animateConfetti();
-//   if (team1Points > team2Points) {
-//     alert("Team 1 won!");
-//   }
-//   else if (team1Points < team2Points) {
-//     alert("Team 2 won!")
-//   }
-//   else if (team1Points === team2Points) {
-//     alert("The game is tied!");
-//   }
-// });
-
 let submitAnswer = (event) => {
   console.log("submitted");
   let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
