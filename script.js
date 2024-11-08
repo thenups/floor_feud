@@ -30,6 +30,11 @@ let roundPoints = 0;
 let team1WrongAnswer = false;
 let team2WrongAnswer = false;
 
+// Add this line after other variable declarations
+let guessInput = document.getElementById('guess');
+guessInput.disabled = true;  // Disable input field initially
+guessInput.placeholder = 'Click Next Question to start!';
+
 //function to start timer:
 function countdown() {
   var seconds = 59;
@@ -187,12 +192,16 @@ function displayQuestion(questionId) {
     } else {
       answer.innerHTML = "";
     }
+    answer.closest('.board-item-content').classList.remove('unguessed-answer');
+
   });
   roundPoints = 0;
   activeTeam = 1;
   team1WrongAnswer = false;
   team2WrongAnswer = false;
   updateActiveTeamDisplay();
+  guessInput.disabled = false;  // Enable input field when question is displayed
+  guessInput.placeholder = 'Type your guess here!';
 }
 
 newQuestionButton.addEventListener("click", () => {
