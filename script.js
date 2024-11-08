@@ -29,6 +29,7 @@ let team2Score = 0;
 let roundPoints = 0;
 let team1WrongAnswer = false;
 let team2WrongAnswer = false;
+let timerInterval; // To store the timer reference
 
 // Add this line after other variable declarations
 let guessInput = document.getElementById('guess');
@@ -37,19 +38,37 @@ guessInput.placeholder = 'Click Next Question to start!';
 
 //function to start timer:
 function countdown() {
-  var seconds = 59;
+  clearInterval(timerInterval);
+  let seconds = 20;
+  
   function tick() {
     var counter = document.getElementById("counter");
-    seconds--;
-    counter.innerHTML =
-      "Time left: <br> 0:" + (seconds < 10 ? "0" : "") + String(seconds);
-    if (seconds > 0) {
-      setTimeout(tick, 1000);
-    } else {
-      document.getElementById("counter").innerHTML = "";
+    counter.innerHTML = "Time left: <br> " + (seconds < 10 ? "0" : "") + String(seconds);
+    
+    if (seconds <= 0) {
+      clearInterval(timerInterval);
+      // Handle timeout like a wrong answer
+      playWrongAnswerSound();
+      if (activeTeam === 1) {
+        team1WrongAnswer = true;
+      } else {
+        team2WrongAnswer = true;
+      }
+
+      if (team1WrongAnswer && team2WrongAnswer) {
+        showModal();
+      } else {
+        activeTeam = activeTeam === 1 ? 2 : 1;
+        updateActiveTeamDisplay();
+        countdown(); // Start timer for other team
+      }
+      return;
     }
+    seconds--;
   }
+  
   tick();
+  timerInterval = setInterval(tick, 1000);
 }
 
 // start with -1 so that when we click next question, it will be 0
@@ -138,7 +157,10 @@ let submitAnswer = (event) => {
     }
 
     if (areAllAnswersRevealed()) {
+      clearInterval(timerInterval); // Stop timer when all answers revealed
       showModal();
+    } else {
+      countdown(); // Reset timer after correct answer
     }
   } else {
     playWrongAnswerSound();
@@ -149,11 +171,13 @@ let submitAnswer = (event) => {
     }
 
     if (team1WrongAnswer && team2WrongAnswer) {
+      clearInterval(timerInterval); // Stop timer when both teams are wrong
       showModal();
     }
 
     activeTeam = activeTeam === 1 ? 2 : 1;
     updateActiveTeamDisplay();
+    countdown(); // Reset timer after wrong answer
   }
 
   inputField.value = "";
@@ -252,6 +276,7 @@ function showModal() {
 }
 
 function closeModal() {
+  clearInterval(timerInterval);
   document.querySelector('.modal-background').style.display = 'none';
   document.querySelector('.modal-content').classList.remove('game-end');
   revealUnguessedAnswers();
