@@ -693,6 +693,16 @@ font-family: 'Work Sans', sans-serif;
   box-shadow: 0 12px 40px rgba(255, 255, 255, 0.1);
 }
 
+.answer-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.answer-text {
+  margin-right: 20px; /* Optional: adds some space between text and points */
+}
+
 
 
 

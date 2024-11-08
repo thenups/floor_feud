@@ -280,7 +280,11 @@ function displayQuestion(questionId) {
   answers.forEach((answer, i) => {
     answer.classList.add("hidden");
     if (i < questionBank[currentQuestionID].answers.length) {
-      answer.innerHTML = questionBank[currentQuestionID].answers[i] + `<br> ${questionBank[currentQuestionID].points[i]} points`;
+      answer.innerHTML = `
+        <div class="answer-container" style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="answer-text">${questionBank[currentQuestionID].answers[i]}</div>
+          <div class="answer-points">${questionBank[currentQuestionID].points[i]}</div>
+        </div>`;
     } else {
       answer.innerHTML = "";
     }
