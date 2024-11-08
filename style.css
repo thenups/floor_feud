@@ -51,6 +51,7 @@ h1, h2, h3, h4, h5, h6, .team-name {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  align-items: center;
 }
 .innerContainer{
   display: flex;
@@ -267,7 +268,7 @@ font-family: 'Work Sans', sans-serif;
   border-color: #FF557E !important;
   color: #ffffff;
   transform: scale(1.05);
-  box-shadow: 0 8px 16px rgba(243, 125, 14, 0.2);
+  box-shadow: 0 8px 16px rgba(255, 255, 255, 0.15);
 }
 
 .team-section.active::before {
@@ -678,6 +679,18 @@ font-family: 'Work Sans', sans-serif;
 
 .logo:hover {
   transform: scale(1.02);
+}
+
+/* Add/update these styles */
+.team-section.active-team .team-name,
+.team-section.active-team .team-score {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 2px 8px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.team-section.active-team {
+  box-shadow: 0 12px 40px rgba(255, 255, 255, 0.1);
 }
 
 

@@ -29,7 +29,6 @@
           class="logo" />
       </div>
     </section>
-    <br>
     <section class="container">
       <div class="board-item">
         <div class="questionBox board-item-content">
@@ -56,21 +55,20 @@
       </section>
 
       <section class="hero">
-        <form target="#here" method="post" id="answerForm">
+        <form target="#here" method="post" id="answerForm" autocomplete="off">
           <input id="guess" class="input is-primary is-large" type="text" name="language"
-            placeholder="Type your guess here!" />
+            placeholder="Type your guess here!" autocomplete="off" spellcheck="false" />
         </form>
       </section>
     </div>
     <h3 id="incorrectAnswerResponse" class="hidden"> Your guess is incorrect </h3>
-    <br>
 
     <section class="container  answerArea">
       <div class="level-item ">
         <div>
           <div class="team-section" id="team1Section">
             <div class="team-name" id="atticVPs">
-              Attic VPs
+              Attic
             </div>
             <div class="avatar-container">
               <div class="team-avatar">
@@ -113,7 +111,7 @@
         <div>
           <div class="team-section" id="team2Section">
             <div class="team-name" id="basementVPs">
-              Basement VPs
+              Basement
             </div>
             <div class="avatar-container">
               <div class="team-avatar">

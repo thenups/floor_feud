@@ -243,7 +243,7 @@ let submitAnswer = (event) => {
     savedSeconds = 20;
     isTimerRunning = false;
     const playPauseButton = document.querySelector('.btnGroup button');
-    playPauseButton.innerHTML = '<span class="play-pause-icon">⏯️</span>';
+    playPauseButton.innerHTML = '<span class="play-pause-icon">▶️</span>';
     countdown();
   }
 
@@ -310,7 +310,7 @@ newQuestionButton.addEventListener("click", () => {
     savedSeconds = 20; // Reset saved seconds
     isTimerRunning = false; // Ensure timer starts paused
     const playPauseButton = document.querySelector('.btnGroup button');
-    playPauseButton.innerHTML = '<span class="play-pause-icon">⏯️</span>';
+    playPauseButton.innerHTML = '<span class="play-pause-icon">▶️</span>';
     countdown(); // This will just display the time without starting
   } else {
     endGame();
@@ -400,14 +400,14 @@ function endGame() {
       <div class="columns is-centered">
         <div class="column is-half">
           <div class="team-result">
-            <h4 style="font-family: 'Telegraf', 'Poppins', sans-serif;">Attic VPs & Basement VPs</h4>
+            <h4 style="font-family: 'Telegraf', 'Poppins', sans-serif;">Attic & Basement</h4>
             <p class="final-score" style="font-family: 'Inter', 'Arial', sans-serif; color: #050E3D;">${team1Score} points</p>
           </div>
         </div>
       </div>
     ` : `
       <h3 class="subtitle is-3" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #050E3D;">
-        ${isTeam1Winner ? 'Attic VPs' : 'Basement VPs'} Wins!
+        ${isTeam1Winner ? 'Attic' : 'Basement'} Wins!
       </h3>
       <div class="winning-team">
         <div class="avatar-container">
@@ -425,7 +425,7 @@ function endGame() {
       <div class="losing-team">
         <p class="loser-label" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #615B56;">Runner Up:</p>
         <p class="loser-name" style="font-family: 'Telegraf', 'Poppins', sans-serif; color: #615B56;">
-          ${isTeam1Winner ? 'Basement VPs' : 'Attic VPs'}
+          ${isTeam1Winner ? 'Basement' : 'Attic'}
         </p>
         <p class="loser-score" style="font-family: 'Inter', 'Arial', sans-serif; color: #615B56;">
           ${isTeam1Winner ? team2Score : team1Score} points
