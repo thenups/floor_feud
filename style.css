@@ -25,6 +25,7 @@ h1, h2, h3, h4, h5, h6, .team-name {
 .answer{
   text-align: center;
   font-size: 20px;
+  flex-grow: 1;
 }
 
 .answerArea{
@@ -111,6 +112,21 @@ h1, h2, h3, h4, h5, h6, .team-name {
   margin: 5px 0;
   will-change: transform;
 } 
+
+.question-content {
+  word-break: break-all;
+  position: relative;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 4px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  -webkit-box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+  box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
+  margin: 5px;
+  color: #050E3D;
+}
  
 .board-item-content {
   word-break: break-all;
@@ -125,6 +141,8 @@ h1, h2, h3, h4, h5, h6, .team-name {
   box-shadow: 0px 1px 3px 0 rgba(0,0,0,0.2);
   margin: 5px;
   color: #050E3D;
+  display: flex;
+  align-items: center;
 }
 #submitButton{
   margin-left: 20px;
