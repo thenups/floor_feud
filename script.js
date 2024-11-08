@@ -1,6 +1,3 @@
-
-
-
 console.log("script running");
 //Variables:
 let team1ScoreBox = document.querySelector(".team1");
@@ -8,7 +5,7 @@ let team2ScoreBox = document.querySelector(".team2");
 let roundScoreBox = document.querySelector(".roundScore");
 let guessesBox = document.querySelector(".guessesLeft");
 let questionBox = document.querySelector(".questionBox");
-let newQuestionButton = document.querySelector(".questionButton");
+let newQuestionButton = document.querySelector("#nextQuestion");
 let submitButton = document.querySelector("#submitButton");
 let endGameButton = document.querySelector(".endGame");
 
@@ -57,44 +54,27 @@ function countdown() {
 
 let currentQuestionID = 0;
 
-//GETTING A RANDOM QUESTION CODE
-let randomNum = 0;
-newQuestionButton.addEventListener("click", () => {
-  randomNum = Math.floor(Math.random() * 2);
-  questionBox.innerHTML = questionBank[randomNum].question;
-  incorrectAnswerResponse.classList.add("hidden");
-  countdown();
-  roundPoints = 0;
-  guessesLeft = 3;
-  //add hidden to classlist of all answers
-  answers.forEach((answer) => {
-    answer.classList.add("hidden");
-  })
-  updateBoard();
-});
-
 //FIELD INPUT COMPARISON AND SCORE CODE
 
 const inputField = document.querySelector("#guess");
 let incorrectAnswerResponse = document.querySelector("#incorrectAnswerResponse");
 
 function checkAnswer(guess) {
-  for (let i = 0; i < questionBank[randomNum].answers.length; i++) {
-    //correct answer
-    if (guess === questionBank[randomNum].answers[i].toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')) {
-      roundPoints += questionBank[randomNum].points[i];
+  for (let i = 0; i < questionBank[currentQuestionID].answers.length; i++) {
+    if (guess === questionBank[currentQuestionID].answers[i].toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')) {
+      roundPoints += questionBank[currentQuestionID].points[i];
       answers.forEach((answer) => {
         let answerNum = parseInt(answer.id);
         if (answerNum === i) {
           answer.classList.remove("hidden");
-          answer.innerHTML = questionBank[randomNum].answers[i] + `<br> ${questionBank[randomNum].points[i]} points`;
+          answer.innerHTML = questionBank[currentQuestionID].answers[i] + `<br> ${questionBank[currentQuestionID].points[i]} points`;
         }
       })
       return true;
     }
   }
   guessesLeft--;
-  updateBoard();
+  // updateBoard();
   return false;
 }
 
@@ -102,19 +82,19 @@ let flag;
 
 
 
-//SCORE UPDATE CODE
-team1ScoreBox.addEventListener("click", () => {
-  team1Points += roundPoints;
-  updateBoard();
-});
+// //SCORE UPDATE CODE
+// team1ScoreBox.addEventListener("click", () => {
+//   team1Points += roundPoints;
+//   updateBoard();
+// });
 
 
 
 
-team2ScoreBox.addEventListener("click", () => {
-  team2Points += roundPoints;
-  updateBoard();
-});
+// team2ScoreBox.addEventListener("click", () => {
+//   team2Points += roundPoints;
+//   updateBoard();
+// });
 
 
 
@@ -168,18 +148,18 @@ function animateConfetti() {
   }
 }
 
-endGameButton.addEventListener("click", () => {
-  animateConfetti();
-  if (team1Points > team2Points) {
-    alert("Team 1 won!");
-  }
-  else if (team1Points < team2Points) {
-    alert("Team 2 won!")
-  }
-  else if (team1Points === team2Points) {
-    alert("The game is tied!");
-  }
-});
+// endGameButton.addEventListener("click", () => {
+//   animateConfetti();
+//   if (team1Points > team2Points) {
+//     alert("Team 1 won!");
+//   }
+//   else if (team1Points < team2Points) {
+//     alert("Team 2 won!")
+//   }
+//   else if (team1Points === team2Points) {
+//     alert("The game is tied!");
+//   }
+// });
 
 let submitAnswer = (event) => {
   console.log("submitted");
@@ -189,7 +169,7 @@ let submitAnswer = (event) => {
   if (guessesLeft === 0) {
     alert("You have ran out of guesses. Click which team you would like to add points to");
   }
-  updateBoard();
+  // updateBoard();
   inputField.value = "";
 };
 
@@ -227,3 +207,23 @@ function playPause() {
   audio.src = "points.mp3";
   audio.play();
 }
+
+function displayQuestion(questionId) {
+  questionBox.innerHTML = questionBank[questionId].question;
+  // Reset answers display
+  answers.forEach(answer => {
+    answer.classList.add("hidden");
+    answer.innerHTML = "";
+  });
+  // Reset round state
+  roundPoints = 0;
+  guessesLeft = 3;  // or whatever your default guess count should be
+  // updateBoard();
+}
+
+newQuestionButton.addEventListener("click", () => {
+  console.log("new question button clicked");
+  currentQuestionID = (currentQuestionID + 1) % questionBank.length;  // Cycle through questions
+  displayQuestion(currentQuestionID);
+  playNextQuestionSound();
+});
