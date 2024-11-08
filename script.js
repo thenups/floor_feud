@@ -52,7 +52,8 @@ function countdown() {
   tick();
 }
 
-let currentQuestionID = 0;
+// start with -1 so that when we click next question, it will be 0
+let currentQuestionID = -1;
 
 //FIELD INPUT COMPARISON AND SCORE CODE
 
@@ -205,10 +206,18 @@ function displayQuestion(questionId) {
 }
 
 newQuestionButton.addEventListener("click", () => {
-  console.log("new question button clicked");
-  currentQuestionID = (currentQuestionID + 1) % questionBank.length;  // Cycle through questions
-  displayQuestion(currentQuestionID);
-  playNextQuestionSound();
+  currentQuestionID++;  // Increment first
+  console.log("new question button clicked", currentQuestionID, questionBank.length);
+  
+  if (currentQuestionID < questionBank.length) {  // Changed condition
+    // Show question if we still have questions
+    displayQuestion(currentQuestionID);
+    playNextQuestionSound();
+    countdown();
+  } else {
+    // End game after all questions have been shown
+    endGame();
+  }
 });
 
 // Add new function to update active team display
@@ -257,4 +266,40 @@ document.getElementById('modalOkButton').addEventListener('click', closeModal);
 function areAllAnswersRevealed() {
   const hiddenAnswers = document.querySelectorAll('.answer.hidden');
   return hiddenAnswers.length === 0;
+}
+
+// Add new function to handle game end
+function endGame() {
+  const winner = team1Score > team2Score ? "Attic VPs" : 
+                team1Score < team2Score ? "Basement VPs" : 
+                "It's a tie!";
+  
+  // Show final score modal
+  const modalContent = document.querySelector('.modal-content');
+  modalContent.innerHTML = `
+    <span class="modal-close">&times;</span>
+    <h2>Game Over!</h2>
+    <p>Final Scores:</p>
+    <p>Attic VPs: ${team1Score}</p>
+    <p>Basement VPs: ${team2Score}</p>
+    <p><strong>${winner} wins!</strong></p>
+    <button class="button is-primary" id="modalOkButton">OK</button>
+  `;
+  
+  showModal();
+  
+  // Start confetti animation
+  animateConfetti();
+  
+  // Optional: Stop confetti after 5 seconds
+  setTimeout(() => {
+    confettiShower.forEach(animation => animation.cancel());
+    const confettis = document.querySelectorAll('.confetti');
+    confettis.forEach(confetti => confetti.remove());
+  }, 5000);
+  
+  // Disable game controls
+  newQuestionButton.disabled = true;
+  guessInput.disabled = true;
+  guessInput.placeholder = 'Game Over!';
 }
