@@ -66,7 +66,7 @@ function countdown() {
         savedSeconds = 20;
         isTimerRunning = false;
         const playPauseButton = document.querySelector('.btnGroup button');
-        playPauseButton.textContent = "⏯️";
+        playPauseButton.textContent = "▶️";
         countdown();
       }
       return;
@@ -90,10 +90,10 @@ function playPause() {
   const playPauseButton = document.querySelector('.btnGroup button');
   
   if (isTimerRunning) {
-    playPauseButton.textContent = "⏸️";
+    playPauseButton.textContent = "⏸";
     countdown();
   } else {
-    playPauseButton.textContent = "⏯️";
+    playPauseButton.textContent = "▶️";
     clearInterval(timerInterval);
   }
 }
