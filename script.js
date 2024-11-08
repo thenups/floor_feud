@@ -11,7 +11,7 @@ let endGameButton = document.querySelector(".endGame");
 let questionBank = [
   {
     "question": "Who really responds to all of the Leo questions?",
-    "answers": ["Andrei Vazhnov", "Fabio Brahimi", "Sam Ryan", "Sharran Srivatsaa", "Tamir Poleg"],
+    "answers": ["Andrei Vazhnov", "Fabio Brahimi", "Sam Ryan","Aleko Frangopoulos", "Sharran Srivatsaa", "Tamir Poleg"],
     "points": [42, 27, 11, 10, 9, 1]
   },
   {
@@ -123,6 +123,7 @@ function checkAnswer(guess) {
   const answerVariants = {
     // Question 1 variants
     "andrei vazhnov": ["andrei"],
+    "aleko frangopoulos": ["aleko"],
     "fabio brahimi": ["fabio"],
     "sam ryan": ["sam"],
     "sharran srivatsaa": ["sharran"],
