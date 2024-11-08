@@ -243,6 +243,40 @@ font-family: 'Work Sans', sans-serif;
   transition: all 0.3s ease;
 }
 
+.team-section {
+  border: 2px solid #209cee;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  margin: 0 20px;
+  transition: all 0.3s ease;
+}
+
+.team-section.active {
+  background-color: rgba(242, 125, 14, 0.1);
+  border-color: #f37d0e;
+}
+
+.team-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.team-score {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #f37d0e;
+  margin-top: 15px;
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
 
 
 
