@@ -3,7 +3,6 @@ console.log("script running");
 let team1ScoreBox = document.querySelector(".team1");
 let team2ScoreBox = document.querySelector(".team2");
 let roundScoreBox = document.querySelector(".roundScore");
-let guessesBox = document.querySelector(".guessesLeft");
 let questionBox = document.querySelector(".questionBox");
 let newQuestionButton = document.querySelector("#nextQuestion");
 let submitButton = document.querySelector("#submitButton");
@@ -60,7 +59,6 @@ function checkAnswer(guess) {
       return true;
     }
   }
-  guessesLeft--;
   return false;
 }
 
@@ -119,7 +117,7 @@ let submitAnswer = (event) => {
   if (checkAnswer(guess)) {
     playCorrectAnswerSound();
   } else {
-    playDoubleDingSound();
+    playWrongAnswerSound();
   }
   
   inputField.value = "";
@@ -129,32 +127,24 @@ document.getElementById("answerForm").addEventListener("submit", (event) => {
   event.preventDefault();
   let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
   submitAnswer(event)
-  // playDoubleDingSound();
 });
 
 //AUDIO 
 function playCorrectAnswerSound() {
   const audio = new Audio();
-  audio.src = "sound.mp3";
+  audio.src = "sounds/sound.mp3";
   audio.play();
 }
 
-function playDoubleDingSound() {
+function playWrongAnswerSound() {
   const audio = new Audio();
-  audio.src = "new.mp3";
+  audio.src = "sounds/wompwomp.mp3";
   audio.play();
 }
 
 function playNextQuestionSound() {
   const audio = new Audio();
-  audio.src = "points.mp3";
-  audio.play();
-}
-
-function playPause() {
-  // TODO: implement pause
-  const audio = new Audio();
-  audio.src = "points.mp3";
+  audio.src = "sounds/points.mp3";
   audio.play();
 }
 
@@ -167,7 +157,6 @@ function displayQuestion(questionId) {
   });
   // Reset round state
   roundPoints = 0;
-  guessesLeft = 3;  // or whatever your default guess count should be
 }
 
 newQuestionButton.addEventListener("click", () => {
