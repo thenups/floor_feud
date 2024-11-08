@@ -40,6 +40,9 @@ let guessInput = document.getElementById('guess');
 guessInput.disabled = true;  // Disable input field initially
 guessInput.placeholder = 'Click Next Question to start!';
 
+// Add at the top with other variables
+let isTeam1Starting = true;  // New variable to track which team starts
+
 //function to start timer:
 function countdown() {
   clearInterval(timerInterval);
@@ -59,6 +62,7 @@ function countdown() {
       }
 
       if (team1WrongAnswer && team2WrongAnswer) {
+        deselectBothTeams();
         showModal();
       } else {
         activeTeam = activeTeam === 1 ? 2 : 1;
@@ -204,6 +208,7 @@ let submitAnswer = (event) => {
 
     if (areAllAnswersRevealed()) {
       clearInterval(timerInterval);
+      deselectBothTeams();
       showModal();
     } else {
       savedSeconds = 20;
@@ -219,6 +224,7 @@ let submitAnswer = (event) => {
 
     if (team1WrongAnswer && team2WrongAnswer) {
       clearInterval(timerInterval);
+      deselectBothTeams();
       showModal();
     }
 
@@ -269,15 +275,19 @@ function displayQuestion(questionId) {
       answer.innerHTML = "";
     }
     answer.closest('.board-item-content').classList.remove('unguessed-answer');
-
   });
+  
   roundPoints = 0;
-  activeTeam = 1;
+  // Set starting team based on isTeam1Starting
+  activeTeam = isTeam1Starting ? 1 : 2;
   team1WrongAnswer = false;
   team2WrongAnswer = false;
   updateActiveTeamDisplay();
-  guessInput.disabled = false;  // Enable input field when question is displayed
+  guessInput.disabled = false;
   guessInput.placeholder = 'Type your guess here!';
+  
+  // Toggle starting team for next round
+  isTeam1Starting = !isTeam1Starting;
 }
 
 newQuestionButton.addEventListener("click", () => {
@@ -320,7 +330,6 @@ function updateActiveTeamDisplay() {
 function showModal() {
   document.querySelector('.modal-background').style.display = 'flex';
   
-  // Only add the OK button for round-end modals, not game-end
   if (!document.querySelector('.modal-content').classList.contains('game-end')) {
     const modalContent = document.querySelector('.modal-content');
     modalContent.innerHTML = `
@@ -329,7 +338,6 @@ function showModal() {
       <button class="button is-primary" id="modalOkButton">OK</button>
     `;
     
-    // Add event listener for OK button
     document.getElementById('modalOkButton').addEventListener('click', closeModal);
   }
 }
@@ -340,6 +348,7 @@ function closeModal() {
   document.querySelector('.modal-content').classList.remove('game-end');
   revealUnguessedAnswers();
   disableAnswerForm();
+  deselectBothTeams();
 }
 
 function revealUnguessedAnswers() {
@@ -418,4 +427,17 @@ function endGame() {
   newQuestionButton.disabled = true;
   guessInput.disabled = true;
   guessInput.placeholder = 'Game Over!';
+}
+
+// Add this function to remove active styling from both teams
+function deselectBothTeams() {
+  const team1Section = document.querySelector('#team1Section');
+  const team2Section = document.querySelector('#team2Section');
+  const team1Name = document.querySelector('#atticVPs');
+  const team2Name = document.querySelector('#basementVPs');
+
+  team1Section.classList.remove('active-team');
+  team2Section.classList.remove('active-team');
+  team1Name.classList.remove('active-team');
+  team2Name.classList.remove('active-team');
 }
