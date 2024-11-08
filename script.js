@@ -21,18 +21,6 @@ let questionBank = [
     "points": [44, 23, 12, 11, 10]
   }];
 
-let team1Points = 0;
-let team2Points = 0;
-let roundPoints = 0;
-let guessesLeft = 1;
-
-function updateBoard() {
-  team1ScoreBox.innerHTML = `Attic VPs: ${team1Points}`;
-  team2ScoreBox.innerHTML = `Basement VPs: ${team2Points}`;
-  roundScoreBox.innerHTML = `Round Score: ${roundPoints}`;
-  guessesBox.innerHTML = `Guesses Left: ${guessesLeft}`;
-}
-
 let answers = document.querySelectorAll(".answer");
 
 //function to start timer:
@@ -74,31 +62,8 @@ function checkAnswer(guess) {
     }
   }
   guessesLeft--;
-  // updateBoard();
   return false;
 }
-
-let flag;
-
-
-
-// //SCORE UPDATE CODE
-// team1ScoreBox.addEventListener("click", () => {
-//   team1Points += roundPoints;
-//   updateBoard();
-// });
-
-
-
-
-// team2ScoreBox.addEventListener("click", () => {
-//   team2Points += roundPoints;
-//   updateBoard();
-// });
-
-
-
-
 
 var confettiShower = [];
 var numConfettis = 400;
@@ -169,18 +134,15 @@ let submitAnswer = (event) => {
   if (guessesLeft === 0) {
     alert("You have ran out of guesses. Click which team you would like to add points to");
   }
-  // updateBoard();
   inputField.value = "";
 };
 
 document.getElementById("answerForm").addEventListener("submit", (event) => {
   event.preventDefault();
-  // let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
-  // submitAnswer(event)
+  let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
+  submitAnswer(event)
   // playDoubleDingSound();
 });
-
-
 
 //AUDIO 
 function playCorrectAnswerSound() {
@@ -218,7 +180,6 @@ function displayQuestion(questionId) {
   // Reset round state
   roundPoints = 0;
   guessesLeft = 3;  // or whatever your default guess count should be
-  // updateBoard();
 }
 
 newQuestionButton.addEventListener("click", () => {
