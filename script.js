@@ -182,7 +182,11 @@ function displayQuestion(questionId) {
   questionBox.innerHTML = questionBank[questionId].question;
   answers.forEach((answer, i) => {
     answer.classList.add("hidden");
-    answer.innerHTML = questionBank[currentQuestionID].answers[i] + `<br> ${questionBank[currentQuestionID].points[i]} points`;
+    if (i < questionBank[currentQuestionID].answers.length) {
+      answer.innerHTML = questionBank[currentQuestionID].answers[i] + `<br> ${questionBank[currentQuestionID].points[i]} points`;
+    } else {
+      answer.innerHTML = "";
+    }
   });
   roundPoints = 0;
   activeTeam = 1;
