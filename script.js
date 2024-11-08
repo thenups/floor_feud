@@ -287,7 +287,7 @@ function endGame() {
   const isTie = team1Score === team2Score;
   
   const modalContent = document.querySelector('.modal-content');
-  modalContent.classList.add('game-end'); // Add class to identify game-end modal
+  modalContent.classList.add('game-end');
   
   modalContent.innerHTML = `
     <span class="modal-close">&times;</span>
@@ -307,10 +307,10 @@ function endGame() {
       <div class="winning-team">
         <div class="avatar-container">
           <div class="team-avatar">
-            <img src="path/to/${isTeam1Winner ? 'team1' : 'team2'}-image.jpg" alt="Winner" class="team-image">
+            <img src="https://ca.slack-edge.com/T041X66AJ-${isTeam1Winner ? 'U06CQ3K63QR-1882d0f16642' : 'U01HN4982KD-c60dbacf8c8d'}-512" alt="Winner 1" class="team-image">
           </div>
           <div class="team-avatar">
-            <img src="path/to/${isTeam1Winner ? 'team1' : 'team2'}-image.jpg" alt="Winner" class="team-image">
+            <img src="https://ca.slack-edge.com/T041X66AJ-${isTeam1Winner ? 'U07DV4RK3BP-33a9e8caf1e8' : 'U01PP23N42F-33c796cb2888'}-512" alt="Winner 2" class="team-image">
           </div>
         </div>
         <p class="winner-score">${isTeam1Winner ? team1Score : team2Score} points</p>
