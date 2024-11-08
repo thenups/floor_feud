@@ -45,7 +45,6 @@ let currentQuestionID = 0;
 //FIELD INPUT COMPARISON AND SCORE CODE
 
 const inputField = document.querySelector("#guess");
-let incorrectAnswerResponse = document.querySelector("#incorrectAnswerResponse");
 
 function checkAnswer(guess) {
   for (let i = 0; i < questionBank[currentQuestionID].answers.length; i++) {
@@ -117,10 +116,12 @@ let submitAnswer = (event) => {
   console.log("submitted");
   let guess = inputField.value.toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '');
 
-  // todo: handle guesses
-  if (guessesLeft === 0) {
-    alert("You have ran out of guesses. Click which team you would like to add points to");
+  if (checkAnswer(guess)) {
+    playCorrectAnswerSound();
+  } else {
+    playDoubleDingSound();
   }
+  
   inputField.value = "";
 };
 
