@@ -37,14 +37,26 @@
       </div>
     </section>
     <br>
-    <section class=" container">
+    <section class="container">
       <div class="board-item">
         <div class="questionBox board-item-content">
           <span> Click the New Question button to play!</span>
-          <button id="nextQuestion">→</button>
         </div>
       </div>
     </section>
+
+    <div class="horizontalPosition">
+      <section class="hero ">
+        <form target="#here" method="post" id="answerForm">
+          <input id="guess" class="input is-primary is-large" type="text" name="language"
+            placeholder="Type your guess here!" />
+        </form>
+      </section>
+      <br>
+    </div>
+    <h3 id="incorrectAnswerResponse" class="hidden"> Your guess is incorrect </h3>
+    <br>
+
     <section class="container  answerArea">
       <div class="level-item ">
         <div>
@@ -97,18 +109,9 @@
 
     </section>
 
-    <br>
-    <div class="horizontalPosition">
-      <section class="hero ">
-        <form target="#here" method="post" id="answerForm">
-          <input id="guess" class="input is-primary is-large" type="text" name="language"
-            placeholder="Type your guess here!" />
-        </form>
-      </section>
-      <br>
+    <div class="horizontalPosition" style="display: flex; justify-content: center;">
+      <button id="nextQuestion" class="button is-primary">Next Question →</button>
     </div>
-    <h3 id="incorrectAnswerResponse" class="hidden"> Your guess is incorrect </h3>
-    <br>
 
     <script src="./script.js" defer></script>
   </div>

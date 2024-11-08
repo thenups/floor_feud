@@ -42,8 +42,6 @@ background-image: linear-gradient(to bottom, #f5c6b4, #f6c0a9, #f6ba9d, #f5b590,
   flex-direction: row;
 }
 
-
-
 .topContainer{
   display: flex;
   flex-direction: column;

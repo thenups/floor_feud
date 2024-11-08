@@ -55,7 +55,7 @@ function countdown() {
   tick();
 }
 
-
+let currentQuestionID = 0;
 
 //GETTING A RANDOM QUESTION CODE
 let randomNum = 0;
