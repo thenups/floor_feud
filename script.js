@@ -299,15 +299,21 @@ newQuestionButton.addEventListener("click", () => {
 
 // Add new function to update active team display
 function updateActiveTeamDisplay() {
-  const team1Container = document.querySelector('#atticVPs');
-  const team2Container = document.querySelector('#basementVPs');
+  const team1Section = document.querySelector('#team1Section');
+  const team2Section = document.querySelector('#team2Section');
+  const team1Name = document.querySelector('#atticVPs');
+  const team2Name = document.querySelector('#basementVPs');
 
   if (activeTeam === 1) {
-    team1Container.classList.add('active-team');
-    team2Container.classList.remove('active-team');
+    team1Section.classList.add('active-team');
+    team2Section.classList.remove('active-team');
+    team1Name.classList.add('active-team');
+    team2Name.classList.remove('active-team');
   } else {
-    team2Container.classList.add('active-team');
-    team1Container.classList.remove('active-team');
+    team2Section.classList.add('active-team');
+    team1Section.classList.remove('active-team');
+    team2Name.classList.add('active-team');
+    team1Name.classList.remove('active-team');
   }
 }
 
