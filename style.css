@@ -236,6 +236,13 @@ font-family: 'Work Sans', sans-serif;
   object-fit: cover;
 }
 
+.active-team {
+  color: #f37d0e;
+  font-weight: bold;
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
 
 
 

@@ -22,6 +22,12 @@ let questionBank = [
 
 let answers = document.querySelectorAll(".answer");
 
+// Add at the top with other variables
+let activeTeam = 1; // 1 for team1, 2 for team2
+let team1Score = 0;
+let team2Score = 0;
+let roundPoints = 0;
+
 //function to start timer:
 function countdown() {
   var seconds = 59;
@@ -48,7 +54,7 @@ const inputField = document.querySelector("#guess");
 function checkAnswer(guess) {
   for (let i = 0; i < questionBank[currentQuestionID].answers.length; i++) {
     if (guess === questionBank[currentQuestionID].answers[i].toLowerCase().replace(/[&\/\\#,+()$~%.'":*?<>{}]/g, '')) {
-      roundPoints += questionBank[currentQuestionID].points[i];
+      roundPoints = questionBank[currentQuestionID].points[i];
       answers.forEach((answer) => {
         let answerNum = parseInt(answer.id);
         if (answerNum === i) {
@@ -116,8 +122,19 @@ let submitAnswer = (event) => {
 
   if (checkAnswer(guess)) {
     playCorrectAnswerSound();
+    // Add points to active team
+    if (activeTeam === 1) {
+      team1Score += roundPoints;
+      document.querySelector('.team1-score').textContent = team1Score;
+    } else {
+      team2Score += roundPoints;
+      document.querySelector('.team2-score').textContent = team2Score;
+    }
   } else {
     playWrongAnswerSound();
+    // Switch teams on wrong answer
+    activeTeam = activeTeam === 1 ? 2 : 1;
+    updateActiveTeamDisplay();
   }
   
   inputField.value = "";
@@ -157,6 +174,8 @@ function displayQuestion(questionId) {
   });
   // Reset round state
   roundPoints = 0;
+  activeTeam = 1; // Reset to team 1 on new question
+  updateActiveTeamDisplay();
 }
 
 newQuestionButton.addEventListener("click", () => {
@@ -165,3 +184,17 @@ newQuestionButton.addEventListener("click", () => {
   displayQuestion(currentQuestionID);
   playNextQuestionSound();
 });
+
+// Add new function to update active team display
+function updateActiveTeamDisplay() {
+  const team1Container = document.querySelector('#atticVPs');
+  const team2Container = document.querySelector('#basementVPs');
+  
+  if (activeTeam === 1) {
+    team1Container.classList.add('active-team');
+    team2Container.classList.remove('active-team');
+  } else {
+    team2Container.classList.add('active-team');
+    team1Container.classList.remove('active-team');
+  }
+}
